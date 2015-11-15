@@ -1,5 +1,4 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
 #include "CEAMainScene.h"
 USING_NS_CC;
 

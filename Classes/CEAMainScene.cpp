@@ -11,6 +11,22 @@
 #include "CEAMainScene.h"
 
 
+enum CrossTag{
+    kTagStart,
+    kTagProgress,
+    kTagBatchNode,
+    kTagScore,
+    kTagBgProgress,
+    kTagRestart,
+    kTagBatchDot,
+    kTagBaoJi,
+};
+
+const int EMPTY_BLOCK = 10;
+static const char g_gamescore[] = "\xe6\xb8\xb8\xe6\x88\x8f\xe5\xbe\x97\xe5\x88\x86";//游戏得分
+static const char g_restart[]	= "\xe5\x86\x8d\xe7\x8e\xa9\xe4\xb8\x80\xe6\xac\xa1";//再玩一次
+static const char g_baoji[]		= "\xe6\x9a\xb4\xe5\x87\xbb";//暴击
+
 USING_NS_CC;
 
 Scene* CEAMainScene::createScene()
@@ -38,6 +54,9 @@ bool CEAMainScene::init()
         return false;
     }
     
+
+    this->initGame();
+    /*
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
@@ -82,7 +101,7 @@ bool CEAMainScene::init()
     
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-    
+    */
     return true;
 }
 
@@ -95,3 +114,38 @@ void CEAMainScene::menuCloseCallback(Ref* pSender)
     exit(0);
 #endif
 }
+
+
+void CEAMainScene::initGame()
+{
+    m_bRunGame = false;
+    m_bBaoJi = false;
+    
+    Sprite *pSpriteBg = Sprite::create(s_bg_frame);
+    //  默认描点位于图片中心点
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    pSpriteBg->setPosition(Point(visibleSize.width/2,visibleSize.height/2));
+    //pSpriteBg->setAnchorPoint(Vec2(0, 0));
+    this->addChild(pSpriteBg, 1);
+    
+//    Sprite *pSpriteStart = Sprite::create(s_start);
+//    pSpriteStart->setPosition(Vec2(0, 0));
+//    //pSpriteStart->setAnchorPoint(Vec2(0, 0));
+//    this->addChild(pSpriteStart, 0, kTagStart);
+    //
+    //	CCControlSlider* pSliderVolume = CCControlSlider::create(s_sliderTrack, s_sliderTrack, s_sliderThumb);
+    //	pSliderVolume->setMaximumValue(25.0f);
+    //	pSliderVolume->setMinimumValue(0.0f);
+    //	pSliderVolume->setValue(10.0f);
+    //	pSliderVolume->setPosition(ccp(540, 6));
+    //	pSliderVolume->setAnchorPoint(ccp(0, 0));
+    //	pSliderVolume->addTargetWithActionForControlEvents(this, cccontrol_selector(MainScene::updateVolume), CCControlEventValueChanged);
+    //	this->addChild(pSliderVolume, 1);
+    
+//    Label *pLabelBaoJi = Label::createWithSystemFont(g_baoji, "Arial", 10);
+//    pLabelBaoJi->setPosition(Vec2(20, 13));
+//    pLabelBaoJi->setAnchorPoint(Vec2(0, 0));
+//    this->addChild(pLabelBaoJi, 1, kTagBaoJi);
+}
+
+
