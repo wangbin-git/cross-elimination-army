@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "CEALoadingScene.h"
 #include "CEAWelcomeScene.h"
+#include "CEAGameScene.h"
 
 USING_NS_CC;
 
@@ -58,7 +59,7 @@ void CEALoadingScene::logic(float dt) {
     if (numOfLoadedResources == 0) {
         this->loadResources();
     } else if (numOfLoadedResources == 1) {
-        auto scene = CEAWelcomeScene::createScene();
+        auto scene = CEAGameScene::createScene();
         Director::getInstance()->replaceScene(scene);
     }
 }
