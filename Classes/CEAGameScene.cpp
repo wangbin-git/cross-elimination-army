@@ -69,9 +69,9 @@ bool CEAGameScene::initTouchEvents() {
     listener1->onTouchMoved = [](Touch* touch, Event* event){
         log("sprite onTouchMoved.. ");
 
-        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-        //Move the position of current button sprite
-        target->setPosition(target->getPosition() + touch->getDelta());
+//        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+//        //Move the position of current button sprite
+//        target->setPosition(target->getPosition() + touch->getDelta());
     };
     
     //Process the touch end event
@@ -112,7 +112,7 @@ bool CEAGameScene::initGrids() {
             }
             int nIndex = i * MAX_GAME_COL + j;
             Rect nodeRect = Rect(nRandType * 100, 0, 100, 100);
-            Sprite *pNode = Sprite::create("cells_brick.png", nodeRect);
+            Sprite *pNode = Sprite::create("cells_circle.png", nodeRect);
             pNode->setScale(nodeSize / 100.0 * 0.95, nodeSize / 100.0 * 0.95);
             pNode->setPosition(Point(i * nodeSize + gridBorder + nodeSize / 2.0, j * nodeSize + gridStartY));
             this->addChild(pNode, 100, nIndex);

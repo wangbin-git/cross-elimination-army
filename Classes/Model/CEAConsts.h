@@ -9,6 +9,17 @@
 #ifndef CEAConsts_h
 #define CEAConsts_h
 
+static const int CELLS_TYPE_COUNT = 10;
+
+static const int GRID_MAX_ROW = 10;
+static const int GRID_MAX_COL = 10;
+
+static const int GRID_BORDER_SIZE = 20;
+static const int GRID_START_Y = 150;
+static const int GRID_START_X = 20;
+static const float GRID_CELL_DEFAULT_SCALE = 0.95;
+
+
 static const char s_bg_frame[]      = "bg_frame.png";
 static const char s_bg_grid[]       = "bg_grid.png";
 static const char s_bg_time[]       = "bg_time.png";
