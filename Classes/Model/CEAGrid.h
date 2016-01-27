@@ -13,6 +13,7 @@
 #include "CEAConsts.h"
 
 class CEAGrid : public cocos2d::Sprite {
+public:
     void initCells();
 public:
     CEACell *m_cells[GRID_MAX_ROW * GRID_MAX_COL];

@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "CEAGameScene.h"
-
+#include "CEAGrid.h"
 USING_NS_CC;
 
 Scene* CEAGameScene::createScene() {
@@ -98,26 +98,29 @@ bool CEAGameScene::initGame() {
 }
 
 bool CEAGameScene::initGrids() {
-    srand((int)time(0));
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    int gridBorder = 20; //网格左右距离屏幕边缘的距离
-    int gridStartY = 150; //网格开始的Y坐标值
-    int nodeSize = (int)((visibleSize.width - 40) / MAX_GAME_COL);
-    for (int i = 0; i < MAX_GAME_ROW; i++) {
-        for (int j = 0; j < MAX_GAME_COL; j++) {
-            int nRandType = rand() % 15;
-            if (nRandType >= 10) {
-                nRandType = 9;
-                continue;
-            }
-            int nIndex = i * MAX_GAME_COL + j;
-            Rect nodeRect = Rect(nRandType * 100, 0, 100, 100);
-            Sprite *pNode = Sprite::create("cells_circle.png", nodeRect);
-            pNode->setScale(nodeSize / 100.0 * 0.95, nodeSize / 100.0 * 0.95);
-            pNode->setPosition(Point(i * nodeSize + gridBorder + nodeSize / 2.0, j * nodeSize + gridStartY));
-            this->addChild(pNode, 100, nIndex);
-        }
-    }
+//    srand((int)time(0));
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    int gridBorder = 20; //网格左右距离屏幕边缘的距离
+//    int gridStartY = 150; //网格开始的Y坐标值
+//    int nodeSize = (int)((visibleSize.width - 40) / MAX_GAME_COL);
+//    for (int i = 0; i < MAX_GAME_ROW; i++) {
+//        for (int j = 0; j < MAX_GAME_COL; j++) {
+//            int nRandType = rand() % 15;
+//            if (nRandType >= 10) {
+//                nRandType = 9;
+//                continue;
+//            }
+//            int nIndex = i * MAX_GAME_COL + j;
+//            Rect nodeRect = Rect(nRandType * 100, 0, 100, 100);
+//            Sprite *pNode = Sprite::create("cells_circle.png", nodeRect);
+//            pNode->setScale(nodeSize / 100.0 * 0.95, nodeSize / 100.0 * 0.95);
+//            pNode->setPosition(Point(i * nodeSize + gridBorder + nodeSize / 2.0, j * nodeSize + gridStartY));
+//            this->addChild(pNode, 100, nIndex);
+//        }
+//    }
+    CEAGrid *pGrid = new CEAGrid();
+    pGrid->initCells();
+    this->addChild(pGrid);
     return true;
 }
 
