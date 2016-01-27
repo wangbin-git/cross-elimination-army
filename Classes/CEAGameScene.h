@@ -29,6 +29,8 @@ public:
     
     bool initGrids();
     
+    bool initTouchEvents();
+    
 private:
     
 };
