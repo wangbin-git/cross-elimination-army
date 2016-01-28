@@ -26,6 +26,7 @@ public:
     int m_iRow;        // row index of cell
     int m_iCol;        // column index of cell
     int m_iType;       // type index of cell
+    bool m_bMatchFlag; // match flag of cell
 };
 
 

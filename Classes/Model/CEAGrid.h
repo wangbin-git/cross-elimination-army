@@ -18,6 +18,15 @@ public:
     
     void initTouchEvents();
     
+    CEACell *getCellByIndex(int i, int j);
+    
+    Vec2 getIndexByLocation(float x, float y);
+    
+    CEACell *getCellByLocation(float x, float y);
+    
+    void doCrossElimination(int i, int j);
+    
+    
 public:
     CEACell *m_cells[GRID_MAX_ROW * GRID_MAX_COL];
 };
