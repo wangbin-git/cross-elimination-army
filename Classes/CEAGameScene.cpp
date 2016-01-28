@@ -32,7 +32,7 @@ bool CEAGameScene::init() {
     //auto visibleOrigin = Director::getInstance()->getVisibleOrigin();
     
     bool ret = initGame();
-    ret = initTouchEvents();
+    //ret = initTouchEvents();
     return ret;
 }
 
