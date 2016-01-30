@@ -15,6 +15,12 @@ void CEAGrid::initCells() {
     srand((int)time(0));
     auto visibleSize = Director::getInstance()->getVisibleSize();
     float cellSize = (visibleSize.width - GRID_START_X * 2) / GRID_MAX_COL;
+    Rect backgroundRect = Rect(0, 0, GRID_MAX_COL * 100, GRID_MAX_ROW * 100);
+    Sprite *pBackground = Sprite::create("grid_background.png", backgroundRect);
+    pBackground->setAnchorPoint(Vec2(0, 0));
+    pBackground->setPosition(GRID_START_X, GRID_START_Y);
+    pBackground->setScale(cellSize / 100, cellSize / 100);
+    this->addChild(pBackground, -1);
     for (int i = 0; i < GRID_MAX_ROW; i++) {
         for (int j = 0; j < GRID_MAX_COL; j++) {
             int nIndex = i * GRID_MAX_COL + j;
@@ -28,7 +34,7 @@ void CEAGrid::initCells() {
             pCell->setCell(i, j, nRandType);
             pCell->setAnchorPoint(Vec2(0, 0));
             pCell->setScale(cellSize / 100.0 * GRID_CELL_DEFAULT_SCALE, cellSize / 100.0 * GRID_CELL_DEFAULT_SCALE);
-            pCell->setPosition(Point(i * cellSize + GRID_START_X, j * cellSize + GRID_START_Y));
+            pCell->setPosition(Point(j * cellSize + GRID_START_X, i * cellSize + GRID_START_Y));
             m_cells[nIndex] = pCell;
             this->addChild(pCell);
         }
@@ -96,7 +102,7 @@ void CEAGrid::initTouchEvents() {
 
 CEACell* CEAGrid::getCellByIndex(int i, int j) {
     if (i >= 0 && i < GRID_MAX_ROW && j >= 0 && j < GRID_MAX_COL) {
-        return m_cells[i * GRID_MAX_ROW + j];
+        return m_cells[i * GRID_MAX_COL + j];
     }
     return nullptr;
 }
@@ -106,8 +112,8 @@ CEACell* CEAGrid::getCellByLocation(float x, float y) {
     float deltaY = y - GRID_START_Y;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     float cellSize = (visibleSize.width - GRID_START_X * 2) / GRID_MAX_COL;
-    int i = deltaX / cellSize;
-    int j = deltaY / cellSize;
+    int j = deltaX / cellSize;
+    int i = deltaY / cellSize;
     log("index: [%d,%d]", i, j);
     return this->getCellByIndex(i, j);
 }
@@ -117,8 +123,9 @@ Vec2 CEAGrid::getIndexByLocation(float x, float y) {
     float deltaY = y - GRID_START_Y;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     float cellSize = (visibleSize.width - GRID_START_X * 2) / GRID_MAX_COL;
-    int i = deltaX / cellSize;
-    int j = deltaY / cellSize;
+    int j = deltaX / cellSize;
+    int i = deltaY / cellSize;
+    log("index: [%d,%d]", i, j);
     return Vec2(i, j);
 }
 
@@ -180,8 +187,8 @@ void CEAGrid::doCrossElimination(int row, int col) {
             crossEnd[i]->setVisible(false);
             int row = crossEnd[i]->m_iRow;
             int col = crossEnd[i]->m_iCol;
-            //delete m_cells[row * GRID_MAX_ROW + col];
-            m_cells[row * GRID_MAX_ROW + col] = nullptr;
+            //delete m_cells[row * GRID_MAX_COL + col];
+            m_cells[row * GRID_MAX_COL + col] = nullptr;
         }
     }
 }
