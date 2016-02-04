@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "CEAGameScene.h"
 #include "CEAGrid.h"
+#include "CEAHpMpBar.h"
 USING_NS_CC;
 
 Scene* CEAGameScene::createScene() {
@@ -30,6 +31,8 @@ bool CEAGameScene::init() {
     }
     //auto visibleSize = Director::getInstance()->getVisibleSize();
     //auto visibleOrigin = Director::getInstance()->getVisibleOrigin();
+    
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     
     bool ret = initGame();
     //ret = initTouchEvents();
@@ -121,6 +124,11 @@ bool CEAGameScene::initGrids() {
     CEAGrid *pGrid = new CEAGrid();
     pGrid->initCells();
     this->addChild(pGrid);
+
+    
+    CEAHpMpBar *phpmp = new CEAHpMpBar();
+    phpmp->initBar();
+    this->addChild(phpmp);
     return true;
 }
 

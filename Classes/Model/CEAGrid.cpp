@@ -178,13 +178,25 @@ void CEAGrid::doCrossElimination(int row, int col) {
             }
         }
     }
+    int nDir = 1;
     for (int i = 0; i < 4; i++) {
         if (crossEnd[i] == nullptr) {
             continue;
         }
         if (crossEnd[i]->m_bMatchFlag) {
             //crossEnd[i]->setScale(0.1, 0.1);
-            crossEnd[i]->setVisible(false);
+            //crossEnd[i]->setVisible(false);
+            
+            Vec2 ptStart = crossEnd[i]->getPosition();
+            ccBezierConfig bezier;
+            int nPosX = ptStart.x + (10 + rand() % 200) * nDir;
+            bezier.controlPoint_1 = Vec2(nPosX, ptStart.y + 250);
+            nPosX = nPosX + 50 * nDir;
+            bezier.controlPoint_2 = Vec2(nPosX, 0);
+            bezier.endPosition = Vec2(nPosX, -30);
+            crossEnd[i]->setRotation(nDir * 25);
+            //crossEnd[i]->getParent()->reorderChild(crossEnd[i], 6);
+            crossEnd[i]->runAction(BezierTo::create(0.8f, bezier));
             int row = crossEnd[i]->m_iRow;
             int col = crossEnd[i]->m_iCol;
             //delete m_cells[row * GRID_MAX_COL + col];

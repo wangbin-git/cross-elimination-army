@@ -15,7 +15,7 @@ static const int GRID_MAX_ROW = 15;
 static const int GRID_MAX_COL = 12;
 
 static const int GRID_BORDER_SIZE = 20;
-static const int GRID_START_Y = 150;
+static const int GRID_START_Y = 200;
 static const int GRID_START_X = 20;
 static const float GRID_CELL_DEFAULT_SCALE = 0.90;
 
