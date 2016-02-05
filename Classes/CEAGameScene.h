@@ -12,7 +12,7 @@
 const int MAX_GAME_ROW = 10;
 const int MAX_GAME_COL = 10;
 
-class CEAGameScene : public cocos2d::Layer
+class CEAGameScene : public cocos2d::LayerColor
 {
 public:
     static cocos2d::Scene* createScene();

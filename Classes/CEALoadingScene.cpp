@@ -33,7 +33,7 @@ bool CEALoadingScene::init()
     }
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    auto bg = Sprite::create("Default@2x.png");
+    auto bg = Sprite::create("welcome.png");
     //back->setRotation(-90.0f);
     bg->setPosition(Point(visibleSize.width / 2.0, visibleSize.height / 2.0));
     addChild(bg);

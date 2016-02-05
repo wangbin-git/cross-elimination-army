@@ -25,7 +25,8 @@ Scene* CEAGameScene::createScene() {
 bool CEAGameScene::init() {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    //if ( !Layer::init() )
+    if (!LayerColor::initWithColor(Color4B(255, 255, 255, 255)))
     {
         return false;
     }
@@ -124,11 +125,11 @@ bool CEAGameScene::initGrids() {
     CEAGrid *pGrid = new CEAGrid();
     pGrid->initCells();
     this->addChild(pGrid);
-
     
     CEAHpMpBar *phpmp = new CEAHpMpBar();
     phpmp->initBar();
     this->addChild(phpmp);
+    
     return true;
 }
 
