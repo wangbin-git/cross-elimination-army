@@ -201,6 +201,7 @@ void CEAGrid::doCrossElimination(int row, int col) {
             int col = crossEnd[i]->m_iCol;
             //delete m_cells[row * GRID_MAX_COL + col];
             m_cells[row * GRID_MAX_COL + col] = nullptr;
+            nDir *= -1;
         }
     }
 }
