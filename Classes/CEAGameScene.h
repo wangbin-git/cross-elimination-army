@@ -29,7 +29,13 @@ public:
     
     bool initGrids();
     
+    bool initHpMpBar();
+    
     bool initTouchEvents();
+    
+    void updateHPBar(float delta);
+    
+    void updateHPPercentage(float pt);
     
 private:
     

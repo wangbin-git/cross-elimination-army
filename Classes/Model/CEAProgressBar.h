@@ -20,22 +20,31 @@ public:
     
     void setRect(Rect rect);
     
+    Rect getRect();
+    
     void setPercentage(float pt);
     
     float getPercentage();
+    
+    bool isReversed();
+    
+    void setReversed(bool r);
+    
+    void setFillColor(Color4F c);
+    
+    void setOutlineColor(Color4F c);
 
     
-public:
+private:
     
     bool m_bReversed; // 是否是反向的, 默认是正向(以左边为基准为正向, 以右边为基准为方向)
     
     Rect m_customRect; //progress bar所在rect
     
-    Color4B m_fillColor;
+    Color4F m_fillColor;
     
-    Color4B m_outlineColor;
+    Color4F m_outlineColor;
     
-private:
     float m_percentage;
 };
 

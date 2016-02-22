@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "CEAGameScene.h"
 #include "CEAGrid.h"
-#include "CEAHpMpBar.h"
+#include "CEAProgressBar.h"
 USING_NS_CC;
 
 Scene* CEAGameScene::createScene() {
@@ -37,6 +37,7 @@ bool CEAGameScene::init() {
     
     bool ret = initGame();
     //ret = initTouchEvents();
+    
     return ret;
 }
 
@@ -98,6 +99,8 @@ bool CEAGameScene::initGame() {
     startButton->setPosition(Point(visibleSize.width / 2.0, visibleSize.height / 2.0));
     //this->addChild(startButton, 2);
     initGrids();
+    initHpMpBar();
+    this->schedule(schedule_selector(CEAGameScene::updateHPBar), 0.1);
     return true;
 }
 
@@ -126,11 +129,55 @@ bool CEAGameScene::initGrids() {
     pGrid->initCells();
     this->addChild(pGrid);
     
-    CEAHpMpBar *phpmp = new CEAHpMpBar();
-    phpmp->initBar();
-    this->addChild(phpmp);
+//    CEAHpMpBar *phpmp = new CEAHpMpBar();
+//    phpmp->initBar();
+//    this->addChild(phpmp);
     
     return true;
+}
+
+bool CEAGameScene::initHpMpBar() {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    
+    CEAProgressBar *pMP = CEAProgressBar::create();
+    pMP->setFillColor(Color4F(0.0, 0.0, 1.0, 0.9));
+    pMP->setOutlineColor(Color4F(0.5, 0.5, 0.8, 1.0));
+    pMP->setRect(Rect(20, visibleSize.height - 120, visibleSize.width - 40, 15));
+    pMP->setPercentage(0.5);
+    this->addChild(pMP, 100, TAG_MP_BAR);
+    
+    CEAProgressBar *pHP = CEAProgressBar::create();
+    pHP->setFillColor(Color4F(1.0, 0.0, 0.0, 0.9));
+    pHP->setOutlineColor(Color4F(1.0, 0.2, 0.2, 1.0));
+    pHP->setRect(Rect(20, visibleSize.height - 100, visibleSize.width - 40, 15));
+    pHP->setPercentage(0.7);
+    this->addChild(pHP, 101, TAG_HP_BAR);
+    return true;
+}
+
+void CEAGameScene::updateHPBar(float delta) {
+    this->updateHPPercentage(-0.05);
+}
+
+
+void CEAGameScene::updateHPPercentage(float pt) {
+    
+
+//        CCProgressTimer* pProgressTimer = (CCProgressTimer*)this->getChildByTag(kTagProgress);
+//        pProgressTimer->setPercentage(fPercentage + pProgressTimer->getPercentage());
+//        if (100 <= pProgressTimer->getPercentage())
+//        {
+//            pProgressTimer->setPercentage(0);
+//            unschedule(schedule_selector(MainScene::updateProgress));
+//            overGame();
+//        }
+    
+    CEAProgressBar* pProgressBar = (CEAProgressBar*)this->getChildByTag(TAG_HP_BAR);
+    pProgressBar->setPercentage(pProgressBar->getPercentage() + pt);
+    if (pProgressBar->getPercentage() <= 0.0) {
+        unschedule(schedule_selector(CEAGameScene::updateHPBar));
+        log("game is over");
+    }
 }
 
 
