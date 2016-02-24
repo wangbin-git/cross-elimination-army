@@ -33,7 +33,6 @@ public:
     void setFillColor(Color4F c);
     
     void setOutlineColor(Color4F c);
-
     
 private:
     
@@ -46,6 +45,7 @@ private:
     Color4F m_outlineColor;
     
     float m_percentage;
+    
 };
 
 

@@ -37,6 +37,7 @@ static const char s_soundStart[]	= "Start.mp3";
 
 
 enum CEA_TAG {
+    TAG_GRID,
     TAG_HP_BAR,
     TAG_MP_BAR
 };

@@ -36,58 +36,8 @@ bool CEAGameScene::init() {
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     
     bool ret = initGame();
-    //ret = initTouchEvents();
     
     return ret;
-}
-
-bool CEAGameScene::initTouchEvents() {
-    //Create a "one by one" touch event listener (processes one touch at a time)
-    auto listener1 = EventListenerTouchOneByOne::create();
-    // When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
-    listener1->setSwallowTouches(true);
-    
-    // Example of using a lambda expression to implement onTouchBegan event callback function
-    listener1->onTouchBegan = [](Touch* touch, Event* event){
-        log("sprite onTouchBegan.. ");
-
-        // event->getCurrentTarget() returns the *listener's* sceneGraphPriority node.
-        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-        
-        //Get the position of the current point relative to the button
-        Point locationInNode = target->convertToNodeSpace(touch->getLocation());
-        Size s = target->getContentSize();
-        Rect rect = Rect(0, 0, s.width, s.height);
-        
-        //Check the click area
-        if (rect.containsPoint(locationInNode))
-        {
-            log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
-            target->setOpacity(180);
-            target->setScale(1.2, 1.2);
-            return true;
-        }
-        return false;
-    };
-    
-    //Trigger when moving touch
-    listener1->onTouchMoved = [](Touch* touch, Event* event){
-        log("sprite onTouchMoved.. ");
-
-//        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-//        //Move the position of current button sprite
-//        target->setPosition(target->getPosition() + touch->getDelta());
-    };
-    
-    //Process the touch end event
-    listener1->onTouchEnded = [=](Touch* touch, Event* event){
-        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-        log("sprite onTouchesEnded.. ");
-        target->setOpacity(255);
-        //Reset zOrder and the display sequence will change
-    };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
-    return true;
 }
 
 bool CEAGameScene::initGame() {
@@ -100,7 +50,8 @@ bool CEAGameScene::initGame() {
     //this->addChild(startButton, 2);
     initGrids();
     initHpMpBar();
-    this->schedule(schedule_selector(CEAGameScene::updateHPBar), 0.1);
+    //this->schedule(schedule_selector(CEAGameScene::updateHPBar), 1);
+    this->scheduleUpdate();
     return true;
 }
 
@@ -143,20 +94,26 @@ bool CEAGameScene::initHpMpBar() {
     pMP->setFillColor(Color4F(0.0, 0.0, 1.0, 0.9));
     pMP->setOutlineColor(Color4F(0.5, 0.5, 0.8, 1.0));
     pMP->setRect(Rect(20, visibleSize.height - 120, visibleSize.width - 40, 15));
-    pMP->setPercentage(0.5);
+    pMP->setPercentage(0.0);
     this->addChild(pMP, 100, TAG_MP_BAR);
     
     CEAProgressBar *pHP = CEAProgressBar::create();
     pHP->setFillColor(Color4F(1.0, 0.0, 0.0, 0.9));
     pHP->setOutlineColor(Color4F(1.0, 0.2, 0.2, 1.0));
     pHP->setRect(Rect(20, visibleSize.height - 100, visibleSize.width - 40, 15));
-    pHP->setPercentage(0.7);
+    pHP->setPercentage(1.0);
     this->addChild(pHP, 101, TAG_HP_BAR);
+    
     return true;
 }
 
 void CEAGameScene::updateHPBar(float delta) {
     this->updateHPPercentage(-0.05);
+}
+
+void CEAGameScene::update(float dt) {
+    log("CEAGameScene::update");
+    this->updateHPPercentage(-0.01);
 }
 
 
@@ -175,7 +132,8 @@ void CEAGameScene::updateHPPercentage(float pt) {
     CEAProgressBar* pProgressBar = (CEAProgressBar*)this->getChildByTag(TAG_HP_BAR);
     pProgressBar->setPercentage(pProgressBar->getPercentage() + pt);
     if (pProgressBar->getPercentage() <= 0.0) {
-        unschedule(schedule_selector(CEAGameScene::updateHPBar));
+        //unschedule(schedule_selector(CEAGameScene::updateHPBar));
+        this->unscheduleUpdate();
         log("game is over");
     }
 }

@@ -58,7 +58,6 @@ void CEAProgressBar::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &tran
     this->removeAllChildren();
     DrawNode *pDN = DrawNode::create();
     this->addChild(pDN);
-    pDN->setLineWidth(3);
     Vec2 start = m_customRect.origin;
     Vec2 end = Vec2(start.x + m_customRect.size.width, start.y + m_customRect.size.height);
     Vec2 percentEnd = Vec2(start.x + m_customRect.size.width * m_percentage, start.y + m_customRect.size.height);

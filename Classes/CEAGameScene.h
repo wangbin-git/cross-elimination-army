@@ -30,8 +30,8 @@ public:
     bool initGrids();
     
     bool initHpMpBar();
-    
-    bool initTouchEvents();
+        
+    void update(float dt);
     
     void updateHPBar(float delta);
     
