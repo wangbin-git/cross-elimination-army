@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "CEAGrid.h"
-
+#include "CEAGameScene.h"
 USING_NS_CC;
 
 void CEAGrid::initCells() {
@@ -202,6 +202,11 @@ void CEAGrid::doCrossElimination(int row, int col) {
             //delete m_cells[row * GRID_MAX_COL + col];
             m_cells[row * GRID_MAX_COL + col] = nullptr;
             nDir *= -1;
+            auto gamescene = static_cast<CEAGameScene *>(this->getParent());
+            if (gamescene) {
+                gamescene->updateHPPercentage(0.05);
+            }
+            
         }
     }
 }

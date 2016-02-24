@@ -78,7 +78,7 @@ bool CEAGameScene::initGrids() {
 //    }
     CEAGrid *pGrid = new CEAGrid();
     pGrid->initCells();
-    this->addChild(pGrid);
+    this->addChild(pGrid, 1, TAG_GRID);
     
 //    CEAHpMpBar *phpmp = new CEAHpMpBar();
 //    phpmp->initBar();
@@ -115,7 +115,6 @@ void CEAGameScene::update(float dt) {
     log("CEAGameScene::update");
     this->updateHPPercentage(-0.01);
 }
-
 
 void CEAGameScene::updateHPPercentage(float pt) {
     
