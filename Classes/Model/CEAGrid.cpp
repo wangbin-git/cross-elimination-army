@@ -179,6 +179,7 @@ void CEAGrid::doCrossElimination(int row, int col) {
         }
     }
     int nDir = 1;
+    int nEliNum = 0;
     for (int i = 0; i < 4; i++) {
         if (crossEnd[i] == nullptr) {
             continue;
@@ -202,12 +203,14 @@ void CEAGrid::doCrossElimination(int row, int col) {
             //delete m_cells[row * GRID_MAX_COL + col];
             m_cells[row * GRID_MAX_COL + col] = nullptr;
             nDir *= -1;
-            auto gamescene = static_cast<CEAGameScene *>(this->getParent());
-            if (gamescene) {
-                gamescene->updateHPPercentage(0.05);
-            }
-            
+            nEliNum++;
         }
     }
+    auto gamescene = static_cast<CEAGameScene *>(this->getParent());
+    float lifeDelta = (nEliNum == 0) ? -0.02 : 0.01;
+    if (gamescene) {
+        gamescene->updateHPPercentage(lifeDelta);
+    }
+
 }
 

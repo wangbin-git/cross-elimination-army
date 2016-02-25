@@ -10,6 +10,7 @@
 #include "CEAGameScene.h"
 #include "CEAGrid.h"
 #include "CEAProgressBar.h"
+#include "CEAConsts.h"
 USING_NS_CC;
 
 Scene* CEAGameScene::createScene() {
@@ -50,8 +51,8 @@ bool CEAGameScene::initGame() {
     //this->addChild(startButton, 2);
     initGrids();
     initHpMpBar();
-    //this->schedule(schedule_selector(CEAGameScene::updateHPBar), 1);
-    this->scheduleUpdate();
+    this->schedule(schedule_selector(CEAGameScene::updateHPBar), LIFE_UPDATE_INTERVAL);
+    //this->scheduleUpdate();
     return true;
 }
 
@@ -108,7 +109,8 @@ bool CEAGameScene::initHpMpBar() {
 }
 
 void CEAGameScene::updateHPBar(float delta) {
-    this->updateHPPercentage(-0.05);
+    float dt = 1.0 / (LIFE_TIME / LIFE_UPDATE_INTERVAL);
+    this->updateHPPercentage(-dt);
 }
 
 void CEAGameScene::update(float dt) {
@@ -131,8 +133,8 @@ void CEAGameScene::updateHPPercentage(float pt) {
     CEAProgressBar* pProgressBar = (CEAProgressBar*)this->getChildByTag(TAG_HP_BAR);
     pProgressBar->setPercentage(pProgressBar->getPercentage() + pt);
     if (pProgressBar->getPercentage() <= 0.0) {
-        //unschedule(schedule_selector(CEAGameScene::updateHPBar));
-        this->unscheduleUpdate();
+        unschedule(schedule_selector(CEAGameScene::updateHPBar));
+        //this->unscheduleUpdate();
         log("game is over");
     }
 }

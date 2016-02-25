@@ -35,6 +35,8 @@ static const char s_soundError[]	= "Error.mp3";
 static const char s_soundOver[]	    = "Over.mp3";
 static const char s_soundStart[]	= "Start.mp3";
 
+static float LIFE_TIME = 20.0;
+static float LIFE_UPDATE_INTERVAL = 0.2;
 
 enum CEA_TAG {
     TAG_GRID,
