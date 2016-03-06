@@ -10,12 +10,15 @@
 #define CEAGameInfoWin_h
 
 
-
 class CEAGameInfoWin : public cocos2d::Sprite {
     
 public:
     
+    static CEAGameInfoWin* create();
+    
 public:
+    
+    cocos2d::__String m_sInfo;
     
 };
 
